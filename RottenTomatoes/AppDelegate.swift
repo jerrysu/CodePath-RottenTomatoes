@@ -17,9 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
 
-        let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.barStyle = .BlackTranslucent
-        navigationBarAppearace.tintColor = UIColor.whiteColor()
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.barStyle = .BlackTranslucent
+
+        let goldColor = UIColor(red: 252.0/255.0, green: 194.0/255.0, blue: 0, alpha: 1.0)
+        navigationBarAppearance.tintColor = goldColor
+        navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: goldColor]
+
+        UITabBar.appearance().tintColor = goldColor
 
         return true
     }

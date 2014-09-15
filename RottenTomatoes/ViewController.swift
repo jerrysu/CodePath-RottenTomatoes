@@ -12,10 +12,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var movieTableView: UITableView!
 
-    var moviesArray: NSArray?
+    var moviesArray: NSArray = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Fix an issue with the separator inset in iOS8
+        if (movieTableView.respondsToSelector(Selector("layoutMargins"))) {
+            movieTableView.layoutMargins = UIEdgeInsetsZero;
+        }
+
+        movieTableView.backgroundColor = .blackColor()
+        movieTableView.tintColor = .whiteColor()
 
         SVProgressHUD.show()
         loadMovies()
@@ -27,12 +35,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func loadMovies() {
-        self.movieTableView.backgroundColor = UIColor.blackColor()
-        self.movieTableView.tintColor = UIColor.whiteColor()
-
-        let RottenTomatoesApiKey = "yz8aght3p6b47r22wmkyezan"
-        let RottenTomatoesURLString = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=50&apikey=" + RottenTomatoesApiKey
-        let request = NSMutableURLRequest(URL: NSURL.URLWithString(RottenTomatoesURLString))
+        let request = NSMutableURLRequest(URL: RottenTomatoesApi.getEndpointURL(.BoxOffice))
         request.timeoutInterval = NSTimeInterval(10)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response, data, error) in
             SVProgressHUD.dismiss()
@@ -58,32 +61,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if moviesArray != nil {
-            return moviesArray!.count
-        }
-        return 0
+        return moviesArray.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = movieTableView.dequeueReusableCellWithIdentifier("com.codepath.rottentomatoes.moviecell") as MovieTableViewCell
+        let cell = movieTableView.dequeueReusableCellWithIdentifier("MovieTableViewCell") as MovieTableViewCell
 
-        let movieDictionary = self.moviesArray![indexPath.row] as NSDictionary
+        let movie = Movie(dictionary: moviesArray[indexPath.row] as NSDictionary)
 
-        cell.titleLabel.text = movieDictionary["title"] as NSString
+        cell.titleLabel.text = movie.title
 
-        let rating = movieDictionary["mpaa_rating"] as NSString
-        let synopsis = movieDictionary["synopsis"] as NSString
-        cell.descriptionLabel.setText("\(rating) \(synopsis)", afterInheritingLabelAttributesAndConfiguringWithBlock: { (mutableAttributedString: NSMutableAttributedString!) -> NSMutableAttributedString! in
+        cell.descriptionLabel.setText("\(movie.mpaaRating) \(movie.synopsis)", afterInheritingLabelAttributesAndConfiguringWithBlock: { (mutableAttributedString: NSMutableAttributedString!) -> NSMutableAttributedString! in
                 let boldFont = UIFont.boldSystemFontOfSize(cell.descriptionLabel.font.pointSize)
                 // TODO: Clean this up...
-                mutableAttributedString.addAttribute(kCTFontAttributeName as NSString, value: boldFont, range: NSRange(location: 0, length: rating.length))
+                mutableAttributedString.addAttribute(kCTFontAttributeName as NSString, value: boldFont, range: NSRange(location: 0, length: movie.mpaaRating.length))
                 return mutableAttributedString
             })
 
-        let posters = movieDictionary["posters"] as NSDictionary
-        let thumbnail = (posters["profile"] as NSString).stringByReplacingOccurrencesOfString("tmb", withString: "pro")
-        let thumbnailURL = NSURL(string: thumbnail)
-        let request = NSURLRequest(URL: thumbnailURL)
+        let request = NSURLRequest(URL: movie.thumbnailURL)
         let cachedImage = UIImageView.sharedImageCache().cachedImageForRequest(request)
         if (cachedImage != nil) {
             cell.thumbnailImage.image = cachedImage
@@ -98,6 +93,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }, failure: nil)
         }
 
+        // Fix an issue with the separator inset in iOS8
+        if (cell.respondsToSelector(Selector("layoutMargins"))) {
+            cell.layoutMargins = UIEdgeInsetsZero;
+        }
+
         return cell
     }
 
@@ -109,7 +109,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segue.identifier == "details" {
             let controller = segue.destinationViewController as MovieDetailsViewController
             let indexPath = movieTableView.indexPathForSelectedRow()!
-            controller.movieDictionary = self.moviesArray![indexPath.row] as? NSDictionary
+            controller.movie = Movie(dictionary: moviesArray[indexPath.row] as NSDictionary)
         }
     }
 
