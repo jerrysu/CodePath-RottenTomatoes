@@ -61,9 +61,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailsViewController = MovieDetailsViewController(nibName: nil, bundle: nil)
-        self.navigationController?.pushViewController(detailsViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "details" {
+            let controller = segue.destinationViewController as MovieDetailsViewController
+            let indexPath = movieTableView.indexPathForSelectedRow()!
+            controller.movieDictionary = self.moviesArray![indexPath.row] as? NSDictionary
+        }
     }
 
 }
