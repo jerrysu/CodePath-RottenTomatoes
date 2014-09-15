@@ -81,8 +81,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
 
         let posters = movieDictionary["posters"] as NSDictionary
-        let thumbnail = (posters["thumbnail"] as NSString).stringByReplacingOccurrencesOfString("tmb", withString: "ori")
-        cell.thumbnailImage.setImageWithURL(NSURL(string: thumbnail))
+        let thumbnail = (posters["profile"] as NSString).stringByReplacingOccurrencesOfString("tmb", withString: "pro")
+        let thumbnailURL = NSURL(string: thumbnail)
+        let request = NSURLRequest(URL: thumbnailURL)
+        let cachedImage = UIImageView.sharedImageCache().cachedImageForRequest(request)
+        if (cachedImage != nil) {
+            cell.thumbnailImage.image = cachedImage
+        } else {
+            // Fade in the image after it is loaded
+            cell.thumbnailImage.setImageWithURLRequest(request, placeholderImage: nil, success: { (request, response, image) in
+                cell.thumbnailImage.alpha = 0.0
+                cell.thumbnailImage.image = image
+                UIView.animateWithDuration(1.0, animations: {
+                    cell.thumbnailImage.alpha = 1.0
+                })
+                }, failure: nil)
+        }
 
         return cell
     }

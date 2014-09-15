@@ -31,7 +31,22 @@ class MovieDetailsViewController: UIViewController {
 
         let posters = movieDictionary!["posters"] as NSDictionary
         let original = (posters["original"] as NSString).stringByReplacingOccurrencesOfString("tmb", withString: "ori")
-        backgroundImage.setImageWithURL(NSURL(string: original))
+        let originalURL = NSURL(string: original)
+        let request = NSURLRequest(URL: originalURL)
+        let cachedImage = UIImageView.sharedImageCache().cachedImageForRequest(request)
+        if (cachedImage != nil) {
+            backgroundImage.image = cachedImage
+        } else {
+            // Use the thumbnail image as a placeholder
+            let thumbnail = (posters["profile"] as NSString).stringByReplacingOccurrencesOfString("tmb", withString: "pro")
+            let thumbnailURL = NSURL(string: thumbnail)
+            backgroundImage.setImageWithURL(thumbnailURL)
+
+            // Fade in the image after it is loaded
+            backgroundImage.setImageWithURLRequest(request, placeholderImage: nil, success: { (request, response, image) in
+                self.backgroundImage.image = image
+            }, failure: nil)
+        }
 
         let scores = movieDictionary!["ratings"] as NSDictionary
         let critics_score = scores["critics_score"] as NSNumber
