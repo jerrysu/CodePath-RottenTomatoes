@@ -11,22 +11,49 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var movieTableView: UITableView!
+
     var moviesArray: NSArray?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        SVProgressHUD.show()
+        loadMovies()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        movieTableView.addPullToRefreshWithActionHandler(loadMovies)
+        movieTableView.pullToRefreshView.activityIndicatorViewStyle = .White
+    }
+
+    func loadMovies() {
         self.movieTableView.backgroundColor = UIColor.blackColor()
         self.movieTableView.tintColor = UIColor.whiteColor()
 
         let RottenTomatoesApiKey = "yz8aght3p6b47r22wmkyezan"
         let RottenTomatoesURLString = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=50&apikey=" + RottenTomatoesApiKey
         let request = NSMutableURLRequest(URL: NSURL.URLWithString(RottenTomatoesURLString))
+        request.timeoutInterval = NSTimeInterval(10)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response, data, error) in
-            var errorValue: NSError? = nil
-            let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &errorValue) as NSDictionary
-            self.moviesArray = dictionary["movies"] as? NSArray
-            self.movieTableView.reloadData()
+            SVProgressHUD.dismiss()
+
+            if (self.movieTableView.pullToRefreshView != nil) {
+                self.movieTableView.pullToRefreshView.stopAnimating()
+            }
+
+            TSMessage.dismissActiveNotification()
+
+            var errorValue: NSError?
+            if let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &errorValue) as? NSDictionary {
+                self.moviesArray = dictionary["movies"] as NSArray
+                self.movieTableView.reloadData()
+            } else {
+                TSMessage.showNotificationWithTitle(
+                    "Network error",
+                    subtitle: "Couldn't connect to the server. Check your network connection.",
+                    type: .Error
+                )
+            }
         })
     }
 

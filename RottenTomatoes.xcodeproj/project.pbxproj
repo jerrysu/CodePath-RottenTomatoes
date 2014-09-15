@@ -11,7 +11,6 @@
 		E536ED6919C5382D00600E45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536ED6819C5382D00600E45 /* ViewController.swift */; };
 		E536ED6C19C5382D00600E45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E536ED6A19C5382D00600E45 /* Main.storyboard */; };
 		E536ED6E19C5382D00600E45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E536ED6D19C5382D00600E45 /* Images.xcassets */; };
-		E536ED7119C5382D00600E45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E536ED6F19C5382D00600E45 /* LaunchScreen.xib */; };
 		E536ED7D19C5382D00600E45 /* RottenTomatoesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536ED7C19C5382D00600E45 /* RottenTomatoesTests.swift */; };
 		E536ED8719C53A6800600E45 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536ED8619C53A6800600E45 /* MovieTableViewCell.swift */; };
 		E536ED8919C54AD000600E45 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536ED8819C54AD000600E45 /* MovieDetailsViewController.swift */; };
@@ -37,7 +36,6 @@
 		E536ED6819C5382D00600E45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E536ED6B19C5382D00600E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E536ED6D19C5382D00600E45 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E536ED7019C5382D00600E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E536ED7619C5382D00600E45 /* RottenTomatoesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RottenTomatoesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E536ED7B19C5382D00600E45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E536ED7C19C5382D00600E45 /* RottenTomatoesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RottenTomatoesTests.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				E536ED6819C5382D00600E45 /* ViewController.swift */,
 				E536ED6A19C5382D00600E45 /* Main.storyboard */,
 				E536ED6D19C5382D00600E45 /* Images.xcassets */,
-				E536ED6F19C5382D00600E45 /* LaunchScreen.xib */,
 				E536ED6419C5382D00600E45 /* Supporting Files */,
 				E536ED8619C53A6800600E45 /* MovieTableViewCell.swift */,
 				E536ED8819C54AD000600E45 /* MovieDetailsViewController.swift */,
@@ -219,7 +216,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E536ED6C19C5382D00600E45 /* Main.storyboard in Resources */,
-				E536ED7119C5382D00600E45 /* LaunchScreen.xib in Resources */,
 				E536ED6E19C5382D00600E45 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,14 +299,6 @@
 				E536ED6B19C5382D00600E45 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E536ED6F19C5382D00600E45 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E536ED7019C5382D00600E45 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -398,6 +386,7 @@
 			baseConfigurationReference = 1365039B9D0D4EC0BE9A0162 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = RottenTomatoes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -411,6 +400,7 @@
 			baseConfigurationReference = 1365039B9D0D4EC0BE9A0162 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = RottenTomatoes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
