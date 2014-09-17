@@ -2,7 +2,7 @@
 
 This is a simple Rotten Tomatoes client written in Swift that uses the [RottenTomatoes API](http://developer.rottentomatoes.com/). It uses various UIKit components as well as some CocoaPods to display a list of movies and individual film details.
 
-**Time spent**: Approximately 12 hours total.
+**Time spent**: Approximately 12 hours total
 
 It took several attempts (and more than half of the total time spent) to add the tab bar as I couldn't find a way to reuse the views. The end result was the cleanest solution that I could find, which involved reuse of the views through storyboard using an extra container view.
 
@@ -11,6 +11,8 @@ It took several attempts (and more than half of the total time spent) to add the
 ![Walkthrough](RottenTomatoes.gif)
 
 #### Requirements
+
+The checked items below were completed.
 
  * [x] User can view a list of movies from Rotten Tomatoes. Poster images must be loading asynchronously.
  * [x] User can view movie details by tapping on a cell
@@ -40,11 +42,11 @@ In XCode 6, run the app using the `iPhone 5S` simulator.
 
 The following CocoaPods were used:
 
-[AFNetworking](https://github.com/AFNetworking/AFNetworking)
-[SVProgressHUD](https://github.com/samvermette/SVProgressHUD)
-[SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)
-[TSMessages](https://github.com/toursprung/TSMessages)
-[TTTAttributedLabel](https://github.com/mattt/TTTAttributedLabel)
+ * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+ * [SVProgressHUD](https://github.com/samvermette/SVProgressHUD)
+ * [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)
+ * [TSMessages](https://github.com/toursprung/TSMessages)
+ * [TTTAttributedLabel](https://github.com/mattt/TTTAttributedLabel)
 
 #### License
 
