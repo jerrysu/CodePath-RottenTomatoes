@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var movieTableView: UITableView!
 
     var moviesArray: NSArray = []
+    var mode: MoviesViewMode = .BoxOffice
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func loadMovies() {
-        let request = NSMutableURLRequest(URL: RottenTomatoesApi.getEndpointURL(.BoxOffice))
+        let request = NSMutableURLRequest(URL: getEndpointURL())
         request.timeoutInterval = NSTimeInterval(10)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response, data, error) in
             SVProgressHUD.dismiss()
@@ -58,6 +59,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 )
             }
         })
+    }
+
+    func getEndpointURL() -> NSURL {
+        switch mode {
+            case .TopRentals:
+                return RottenTomatoesApi.getEndpointURL(.TopRentals)
+            default:
+                return RottenTomatoesApi.getEndpointURL(.BoxOffice)
+        }
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -113,5 +123,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 
+}
+
+enum MoviesViewMode {
+    case BoxOffice, TopRentals
 }
 

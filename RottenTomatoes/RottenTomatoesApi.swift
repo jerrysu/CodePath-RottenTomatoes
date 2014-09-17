@@ -19,4 +19,5 @@ struct RottenTomatoesApi {
 
 enum RottenTomatoesEndpoint: NSString {
     case BoxOffice = "/lists/movies/box_office.json"
+    case TopRentals = "/lists/dvds/top_rentals.json"
 }

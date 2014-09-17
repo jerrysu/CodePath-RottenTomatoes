@@ -50,7 +50,7 @@ class MovieDetailsViewController: UIViewController {
 
         // Resize the UIView to fit the contents
         var frame = contentView.frame
-        var height = max(frame.size.height, synopsisLabel.frame.origin.y + synopsisLabel.bounds.height + 20);
+        var height = max(frame.size.height, synopsisLabel.frame.origin.y + synopsisLabel.bounds.height + 20) + tabBarController!.tabBar.frame.height;
         frame.size.height = height + screenSize.height
         contentView.frame = frame
 
