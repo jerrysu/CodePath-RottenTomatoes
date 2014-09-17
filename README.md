@@ -6,11 +6,11 @@ This is a simple Rotten Tomatoes client written in Swift that uses the [RottenTo
 
 It took several attempts (and more than half of the total time spent) to add the tab bar as I couldn't find a way to reuse the views. The end result was the cleanest solution that I could find, which involved reuse of the views through storyboard using an extra container view.
 
-#### Walkthrough
+### Walkthrough
 
 ![Walkthrough](RottenTomatoes.gif)
 
-#### Requirements
+### Requirements
 
 The checked items below were completed.
 
@@ -27,7 +27,7 @@ The checked items below were completed.
  * [x] Add a tab bar for Box Office and DVD. (optional)
  * [ ] Add a search bar. (optional)
 
-#### Installation
+### Installation
 
 Run the following in command-line:
 
@@ -38,7 +38,7 @@ open RottenTomatoes.xcworkspace
 
 In XCode 6, run the app using the `iPhone 5S` simulator.
 
-#### Resources
+### Resources
 
 The following CocoaPods were used:
 
@@ -48,7 +48,7 @@ The following CocoaPods were used:
  * [TSMessages](https://github.com/toursprung/TSMessages)
  * [TTTAttributedLabel](https://github.com/mattt/TTTAttributedLabel)
 
-#### License
+### License
 
 > The MIT License (MIT)
 >
