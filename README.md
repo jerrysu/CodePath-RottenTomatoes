@@ -1,4 +1,4 @@
-## CodePath, Week 1 Project: Rotten Tomatoes
+## CodePath Week 1: Rotten Tomatoes
 
 This is a simple Rotten Tomatoes client written in Swift that uses the [RottenTomatoes API](http://developer.rottentomatoes.com/). It uses various UIKit components as well as some CocoaPods to display a list of movies and individual film details.
 
